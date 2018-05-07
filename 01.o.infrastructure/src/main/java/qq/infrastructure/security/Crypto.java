@@ -1,6 +1,5 @@
 package qq.infrastructure.security;
 
-import qq.infrastructure.AppContext;
 import qq.infrastructure.logging.LogHelper;
 
 import javax.crypto.Cipher;
@@ -10,47 +9,33 @@ import java.security.NoSuchAlgorithmException;
 import java.security.Security;
 
 public class Crypto {
-    private static final String DesKey = "W5pK0o,";
-    private static Cipher encryptCipher = null;
-    private static Cipher decryptCipher = null;
+    private Cipher encryptCipher;
+    private Cipher decryptCipher;
 
-    static {
-        try {
-            Security.addProvider(new com.sun.crypto.provider.SunJCE());
-            Key key = getKey(DesKey.getBytes());
+    private final String key;
+    private final String algorithm;
 
-            encryptCipher = Cipher.getInstance("DES");
-            encryptCipher.init(Cipher.ENCRYPT_MODE, key);
-
-            decryptCipher = Cipher.getInstance("DES");
-            decryptCipher.init(Cipher.DECRYPT_MODE, key);
-        } catch (Exception ex) {
-            LogHelper.log("Crypto constructor", ex);
-        }
+    public Crypto(String key, String algorithm) {
+        this.key = key;
+        this.algorithm = algorithm;
     }
 
-    /**
-     * 老系统的MD5加密
-     * @param input：未加密的密码
-     * @param salt：member表的login_id
-     * @return
-     */
-    public static String encryptMd5_old(String input, String salt) {
-        input = input.toLowerCase();
+    public void initialize() {
         try {
-            int middle = input.length() / 2;
-            byte[] result = MessageDigest.getInstance("MD5").digest((input.substring(0, middle) + salt + input.substring(middle)).getBytes());
-            StringBuilder strBuilder = new StringBuilder(result.length * 2);
-            for (byte b : result) {
-                String s = Integer.toHexString(b & 0x00FF);
-                if (1 == s.length()) {
-                    strBuilder.append('0');
-                }
-                strBuilder.append(s);
+            Security.addProvider(new com.sun.crypto.provider.SunJCE());
+            if (!"DES".equals(this.algorithm) && !"AES".equals(this.algorithm)) {
+                throw new Exception("algorithm 参数仅支持DES和AES");
             }
-            return strBuilder.toString();
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
+            Key key = this.getKey(this.key.getBytes());
+            encryptCipher = Cipher.getInstance(this.algorithm);
+            encryptCipher.init(Cipher.ENCRYPT_MODE, key);
+
+            decryptCipher = Cipher.getInstance(this.algorithm);
+            decryptCipher.init(Cipher.DECRYPT_MODE, key);
+            System.out.println("crypto initialized");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.err.println("crypto initialized failed");
         }
     }
 
@@ -58,12 +43,22 @@ public class Crypto {
         return md5(input + salt);
     }
 
-    public static String encrypt(String input) {
-        return bytesToHex(encrypt(input.getBytes()));
+    public String encrypt(String input) {
+        try {
+            return bytesToHex(encrypt(input.getBytes()));
+        } catch (Exception ex) {
+            LogHelper.log("__encrypt", ex);
+            return null;
+        }
     }
 
-    public static String decrypt(String input) {
-        return new String(decrypt(hexToBytes(input)));
+    public String decrypt(String input) {
+        try {
+            return new String(decrypt(hexToBytes(input)));
+        } catch (Exception ex) {
+            LogHelper.log("__decrypt", ex);
+            return null;
+        }
     }
 
     /**
@@ -77,10 +72,8 @@ public class Crypto {
             MessageDigest digest = MessageDigest.getInstance("MD5");
             digest.update(input.getBytes());
             return bytesToHex(digest.digest());
-        } catch (NoSuchAlgorithmException e) {
-            if (AppContext.getAppConfig().isTestServer()) {
-                e.printStackTrace();
-            }
+        } catch (NoSuchAlgorithmException ex) {
+            LogHelper.log("__crypto.md5", ex);
         }
         return null;
     }
@@ -95,70 +88,52 @@ public class Crypto {
             MessageDigest digest = MessageDigest.getInstance("SHA-1");
             digest.update(input.getBytes());
             return bytesToHex(digest.digest());
-        } catch (NoSuchAlgorithmException e) {
-            if (AppContext.getAppConfig().isTestServer()) {
-                e.printStackTrace();
-            }
+        } catch (NoSuchAlgorithmException ex) {
+            LogHelper.log("__crypto.sha", ex);
         }
         return null;
     }
 
     private static String bytesToHex(byte[] bytes) {
-        try {
-            StringBuffer sb = new StringBuffer(bytes.length * 2);
-            for (int i = 0; i < bytes.length; i++) {
-                int intTmp = bytes[i];
-                while (intTmp < 0) {
-                    intTmp = intTmp + 256;
-                }
-                if (intTmp < 16) {
-                    sb.append("0");
-                }
-                sb.append(Integer.toString(intTmp, 16));
+        StringBuffer sb = new StringBuffer(bytes.length * 2);
+        for (int i = 0; i < bytes.length; i++) {
+            int intTmp = bytes[i];
+            while (intTmp < 0) {
+                intTmp = intTmp + 256;
             }
-            return sb.toString();
-        } catch (Exception ex) {
-            return null;
+            if (intTmp < 16) {
+                sb.append("0");
+            }
+            sb.append(Integer.toString(intTmp, 16));
         }
+        return sb.toString();
     }
 
     private static byte[] hexToBytes(String hex) {
-        try {
-            byte[] bytes = hex.getBytes();
-            int iLen = bytes.length;
-            byte[] result = new byte[iLen / 2];
-            for (int i = 0; i < iLen; i = i + 2) {
-                String strTmp = new String(bytes, i, 2);
-                result[i / 2] = (byte) Integer.parseInt(strTmp, 16);
-            }
-            return result;
-        } catch (Exception ex) {
-            return null;
+        byte[] bytes = hex.getBytes();
+        int iLen = bytes.length;
+        byte[] result = new byte[iLen / 2];
+        for (int i = 0; i < iLen; i = i + 2) {
+            String strTmp = new String(bytes, i, 2);
+            result[i / 2] = (byte) Integer.parseInt(strTmp, 16);
         }
+        return result;
     }
 
-    private static byte[] encrypt(byte[] bytes) {
-        try {
-            return encryptCipher.doFinal(bytes);
-        } catch (Exception ex) {
-            return null;
-        }
+    private byte[] encrypt(byte[] bytes) throws Exception {
+        return this.encryptCipher.doFinal(bytes);
     }
 
-    private static byte[] decrypt(byte[] bytes) {
-        try {
-            return decryptCipher.doFinal(bytes);
-        } catch (Exception ex) {
-            return null;
-        }
+    private byte[] decrypt(byte[] bytes) throws Exception {
+        return this.decryptCipher.doFinal(bytes);
     }
 
-    private static Key getKey(byte[] bytes) throws Exception {
+    private Key getKey(byte[] bytes) throws Exception {
         byte[] bytes8 = new byte[8];
         for (int i = 0; i < bytes.length && i < bytes8.length; i++) {
             bytes8[i] = bytes[i];
         }
-        return new javax.crypto.spec.SecretKeySpec(bytes8, "DES");
+        return new javax.crypto.spec.SecretKeySpec(bytes8, this.algorithm);
     }
 
 }

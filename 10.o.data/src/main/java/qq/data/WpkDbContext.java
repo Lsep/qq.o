@@ -1,7 +1,10 @@
 package qq.data;
 
-public class WpkDbContext extends DbContext {
+import qq.data.set.DbCacheSet;
+import qq.infrastructure.hibernate.DbContext;
 
+public class WpkDbContext extends DbContext {
+    private DbCacheSet dbCacheSet;
 
     public WpkDbContext() {
         super(WpkHibernateSessionFactory.getInstance());
@@ -11,5 +14,10 @@ public class WpkDbContext extends DbContext {
         super(WpkHibernateSessionFactory.getInstance(), transactional);
     }
 
-
+    public DbCacheSet getDbCacheSet() {
+        if (this.dbCacheSet == null) {
+            this.dbCacheSet = new DbCacheSet(this);
+        }
+        return dbCacheSet;
+    }
 }

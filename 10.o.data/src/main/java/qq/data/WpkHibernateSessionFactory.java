@@ -3,17 +3,14 @@ package qq.data;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
 import org.hibernate.cfg.Configuration;
-import yilianshe.core.extensions.JList;
-import yilianshe.core.extensions.KnownException;
-import yilianshe.core.hibernate.HibernateSessionFactory;
+import qq.infrastructure.hibernate.HibernateSessionFactory;
+import qq.util.extensions.JList;
+import qq.util.extensions.KnownException;
 
 import java.io.File;
 import java.nio.file.Paths;
 import java.util.Properties;
 
-/**
- * Created by leo on 2017-10-21.
- */
 public class WpkHibernateSessionFactory extends HibernateSessionFactory {
 
     private final static WpkHibernateSessionFactory instance;

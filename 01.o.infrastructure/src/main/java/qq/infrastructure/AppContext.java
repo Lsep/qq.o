@@ -5,7 +5,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.WebApplicationContext;
-import qq.infrastructure.configs.AppConfig;
+import qq.infrastructure.configs.*;
 import qq.infrastructure.mongodb.MongodbConfig;
 import qq.infrastructure.redis.RedisConfig;
 
@@ -103,5 +103,19 @@ public class AppContext implements ApplicationContextAware {
         return startupDirectory;
     }
 
+    public static OssImagesConfig getOssImagesConfig() {
+        return getBean(OssImagesConfig.class);
+    }
 
+    public static OssInternalConfig getOssInternalConfig() {
+        return getBean(OssInternalConfig.class);
+    }
+
+    public static OssPublicConfig getOssPublicConfig() {
+        return getBean(OssPublicConfig.class);
+    }
+
+    public static WpkSmsConfig getSmsConfig() {
+        return getBean(WpkSmsConfig.class);
+    }
 }

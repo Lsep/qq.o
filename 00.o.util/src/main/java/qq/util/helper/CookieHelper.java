@@ -17,12 +17,12 @@ public class CookieHelper {
         setValue(name, "1", expireSeconds);
     }
 
-    private static String getValue(String name) {
+    public static String getValue(String name) {
         Cookie cookie = JList.from(HttpHelper.getCurrentRequest().getCookies()).firstOrNull(x -> Objects.equals(x.getName(), name));
         return cookie == null ? null : cookie.getValue();
     }
 
-    private static void setValue(String name, String value, int expireSeconds) {
+    public static void setValue(String name, String value, int expireSeconds) {
         Cookie cookie = new Cookie(name, value);
 //        cookie.setDomain(AppContext.getAppConfig().getCookieDomain());
         cookie.setMaxAge(expireSeconds);
@@ -30,7 +30,7 @@ public class CookieHelper {
         HttpHelper.getCurrentResponse().addCookie(cookie);
     }
 
-    private static void remove(String name) {
+    public static void remove(String name) {
         Cookie cookie = new Cookie(name, null);
 //        cookie.setDomain(AppContext.getAppConfig().getCookieDomain());
         cookie.setMaxAge(0);
