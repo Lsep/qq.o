@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="00.o.extention" />
+        <module name="00.o.util" />
+        <module name="01.o.infrastructure" />
+        <module name="10.o.data" />
+        <module name="20.o.service" />
+        <module name="30.o.web" />
+        <module name="99.o.main" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="00.o.extension" target="1.8" />
+      <module name="00.o.extention" target="1.5" />
+      <module name="00.o.util" target="1.8" />
+      <module name="01.o.infrastructure" target="1.8" />
+      <module name="10.o.data" target="1.8" />
+      <module name="20.o.service" target="1.8" />
+      <module name="30.o.web" target="1.8" />
+      <module name="99.o.main" target="1.8" />
+      <module name="o" target="1.5" />
+      <module name="qq.o (1)" target="1.5" />
+      <module name="qq.o (2)" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

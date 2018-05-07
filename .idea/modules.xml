@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/00.o.util/00.o.util.iml" filepath="$PROJECT_DIR$/00.o.util/00.o.util.iml" />
+      <module fileurl="file://$PROJECT_DIR$/01.o.infrastructure/01.o.infrastructure.iml" filepath="$PROJECT_DIR$/01.o.infrastructure/01.o.infrastructure.iml" />
+      <module fileurl="file://$PROJECT_DIR$/10.o.data/10.o.data.iml" filepath="$PROJECT_DIR$/10.o.data/10.o.data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/20.o.service/20.o.service.iml" filepath="$PROJECT_DIR$/20.o.service/20.o.service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/30.o.web/30.o.web.iml" filepath="$PROJECT_DIR$/30.o.web/30.o.web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/99.o.main/99.o.main.iml" filepath="$PROJECT_DIR$/99.o.main/99.o.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/o.iml" filepath="$PROJECT_DIR$/o.iml" />
+    </modules>
+  </component>
+</project>
