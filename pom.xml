@@ -10,6 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>00.o.util</module>
+        <module>01.o.infrastructure</module>
         <module>10.o.data</module>
         <module>20.o.service</module>
         <module>30.o.web</module>
