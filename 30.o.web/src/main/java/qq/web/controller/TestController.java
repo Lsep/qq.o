@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/test")
 public class TestController extends _ControllerBase {
 
-    @GetMapping("/index")
+    @GetMapping()
     public ModelAndView index(){
         return super.tryView("test-index",null);
     }

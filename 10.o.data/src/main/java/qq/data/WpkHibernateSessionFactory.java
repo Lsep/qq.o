@@ -55,7 +55,7 @@ public class WpkHibernateSessionFactory extends HibernateSessionFactory {
 
         ClassLoader classLoader = this.getClass().getClassLoader();
         try {
-            ImmutableSet<ClassPath.ClassInfo> classInfos = ClassPath.from(classLoader).getTopLevelClassesRecursive("wpk.data.entities");
+            ImmutableSet<ClassPath.ClassInfo> classInfos = ClassPath.from(classLoader).getTopLevelClassesRecursive("qq.data.entity");
             if (classInfos.size() == 0) {
                 throw new KnownException("找不到entity");
             }

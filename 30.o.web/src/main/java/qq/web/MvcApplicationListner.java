@@ -42,7 +42,7 @@ public class MvcApplicationListner implements ApplicationListener {
 
             MongoDatabaseWpkFactory.getInstance().initialize();
             LogHelper.startLogger(new MongoWpkLogAppender(AppContext.getAppConfig().getLogsDbName()), true);
-            DtoResultTransformer.checkDtoEntityConstructors(ClassHelper.getClasses(AppContext.getStartupDirectory(), "wpk.data.entities."));
+            DtoResultTransformer.checkDtoEntityConstructors(ClassHelper.getClasses(AppContext.getStartupDirectory(), "qq.data.entity."));
             WpkHibernateSessionFactory.getInstance().initialize(AppContext.getStartupDirectory());
             WpkCrypto.getInstance().initialize();
 
