@@ -9,7 +9,6 @@
         <groupId>com.qq.o</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <packaging>war</packaging>
 
     <artifactId>qq.o.web</artifactId>
 

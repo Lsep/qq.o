@@ -21,5 +21,9 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <finalName>qq-o-main</finalName>
+    </build>
+
 
 </project>
