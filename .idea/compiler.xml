@@ -13,6 +13,12 @@
         <module name="20.o.service" />
         <module name="30.o.web" />
         <module name="99.o.main" />
+        <module name="qq.o.data" />
+        <module name="qq.o.infrastructure" />
+        <module name="qq.o.main" />
+        <module name="qq.o.service" />
+        <module name="qq.o.util" />
+        <module name="qq.o.web" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -25,8 +31,15 @@
       <module name="30.o.web" target="1.8" />
       <module name="99.o.main" target="1.8" />
       <module name="o" target="1.5" />
+      <module name="qq.o" target="1.5" />
       <module name="qq.o (1)" target="1.5" />
       <module name="qq.o (2)" target="1.5" />
+      <module name="qq.o.data" target="1.8" />
+      <module name="qq.o.infrastructure" target="1.8" />
+      <module name="qq.o.main" target="1.8" />
+      <module name="qq.o.service" target="1.8" />
+      <module name="qq.o.util" target="1.8" />
+      <module name="qq.o.web" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
