@@ -118,4 +118,9 @@ public class AppContext implements ApplicationContextAware {
     public static WpkSmsConfig getSmsConfig() {
         return getBean(WpkSmsConfig.class);
     }
+
+    public static WeixinWpkConfig getWeixinWpkConfig() {
+        return getBean(WeixinWpkConfig.class);
+    }
+
 }

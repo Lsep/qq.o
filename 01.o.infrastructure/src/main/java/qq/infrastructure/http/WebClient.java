@@ -74,6 +74,13 @@ public class WebClient implements AutoCloseable {
         entity.getContent().close();
     }
 
+    public InputStream uploadStream(String fullUrl, String data) throws Exception {
+        this.contentType = ContentType.APPLICATION_OCTET_STREAM;
+        HttpPost post = new HttpPost(fullUrl);
+        post.setEntity(new ByteArrayEntity(data.getBytes("UTF-8")));
+        return this.execute(post).getContent();
+    }
+
     public String post(String fullUrl, String data) throws Exception {
         return this.post(fullUrl, data.getBytes(this.charset));
     }
