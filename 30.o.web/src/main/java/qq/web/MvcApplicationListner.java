@@ -32,27 +32,27 @@ public class MvcApplicationListner implements ApplicationListener {
     @Override
     public void onApplicationEvent(ApplicationEvent applicationEvent) {
         if (applicationEvent instanceof ContextClosedEvent) {
-            RedisWpkPoolContext.getInstance().close();
-            WpkHibernateSessionFactory.getInstance().close();
-            DbCacheContext.getInstance().stop();
+//            RedisWpkPoolContext.getInstance().close();
+//            WpkHibernateSessionFactory.getInstance().close();
+//            DbCacheContext.getInstance().stop();
             LogHelper.stopLogger();
         } else if (applicationEvent instanceof ContextStartedEvent || applicationEvent instanceof ContextRefreshedEvent) {
 
-            Properties appProperties = getAppProperties();
+//            Properties appProperties = getAppProperties();
 
             MongoDatabaseWpkFactory.getInstance().initialize();
             LogHelper.startLogger(new MongoWpkLogAppender(AppContext.getAppConfig().getLogsDbName()), true);
-            DtoResultTransformer.checkDtoEntityConstructors(ClassHelper.getClasses(AppContext.getStartupDirectory(), "qq.data.entity."));
-            WpkHibernateSessionFactory.getInstance().initialize(AppContext.getStartupDirectory());
-            WpkCrypto.getInstance().initialize();
+//            DtoResultTransformer.checkDtoEntityConstructors(ClassHelper.getClasses(AppContext.getStartupDirectory(), "qq.data.entity."));
+//            WpkHibernateSessionFactory.getInstance().initialize(AppContext.getStartupDirectory());
+//            WpkCrypto.getInstance().initialize();
 
-            this.registerAllAreas();
+//            this.registerAllAreas();
 
-            DbCacheContext.getInstance().initializeAll().start();
+//            DbCacheContext.getInstance().initializeAll().start();
 
-            RedisWpkPoolContext.getInstance().initialize();
-            AliyunOssApi.initializeAll();
-            WpkSmsApi.getInstance().initialize(AppContext.getSmsConfig());
+//            RedisWpkPoolContext.getInstance().initialize();
+//            AliyunOssApi.initializeAll();
+//            WpkSmsApi.getInstance().initialize(AppContext.getSmsConfig());
         }
     }
 
