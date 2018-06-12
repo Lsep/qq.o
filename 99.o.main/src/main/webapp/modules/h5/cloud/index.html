@@ -19,8 +19,8 @@
 		</style>
 	</head>
 	<body>
-		<script type="text/javascript" src="assets/three.min.js"></script>
-		<script type="text/javascript" src="assets/Detector.js"></script>
+		<script type="text/javascript" src="/modules/h5/cloud/assets/three.min.js"></script>
+		<script type="text/javascript" src="/modules/h5/cloud/assets/Detector.js"></script>
 		<script id="vs" type="x-shader/x-vertex">
 
 			varying vec2 vUv;
@@ -105,7 +105,7 @@
 
 				geometry = new THREE.Geometry();
 
-				var texture = THREE.ImageUtils.loadTexture( 'cloud10.png', null, animate );
+				var texture = THREE.ImageUtils.loadTexture( '/modules/h5/cloud/cloud10.png', null, animate );
 				texture.magFilter = THREE.LinearMipMapLinearFilter;
 				texture.minFilter = THREE.LinearMipMapLinearFilter;
 

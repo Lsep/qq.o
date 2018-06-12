@@ -3,6 +3,7 @@
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 
 <tiles-definitions>
+    <definition name="welcome" template="/modules/h5/cloud/index.html"/>
     <definition name="test-index" template="/modules/test-index.jsp">
         <put-attribute name="title" value=""/>
     </definition>
